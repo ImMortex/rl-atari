@@ -1,0 +1,30 @@
+# reinforcement learning env
+gymnasium[accept-rom-license,atari,classic-control]
+stable_baselines3
+
+# neural network
+tensorboard==2.14.0
+torch==2.1.1
+torchvision==0.16.1
+torchviz==0.0.2
+
+# data
+tqdm==4.66.1
+rich
+moviepy==1.0.3
+opencv-python==4.8.1.78
+expiringdict==1.2.2
+numpy==1.24.4
+
+# host env variables
+python-dotenv==1.0.0
+
+# logging
+wandb==0.16.0
+coloredlogs==15.0.1
+
+# minio storage server
+minio==7.1.15
+urllib3==1.25.11
+pillow~=9.4.0
+numerize==0.12

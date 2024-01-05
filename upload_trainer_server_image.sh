@@ -1,0 +1,1 @@
+docker-compose build && docker tag stcngurs-proof-of-concept-stable-gym-atari immortex/self-supervised-rl-minecraft:proof-of-concept-trainer && docker push immortex/self-supervised-rl-minecraft:proof-of-concept-trainer
