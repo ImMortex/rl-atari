@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stcngurs-stable-gym-breakout5-n8-naturecnn-seq4-no-vol-pretr-unfr
+  namespace: stable-gym
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  #- ki-srv01
+                  #- ki-srv02
+                  #- ki-srv03
+                  #- fb6-gpu-01
+                  - acds-gpu-01
+
+
+  containers:
+    - name: stable-gym-atari
+      image: immortex/self-supervised-rl-minecraft:proof-of-concept-trainer
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: pvc-stable-gym-many
+          mountPath: "/app/data"
+        - name: pvc-stable-gym-wandb
+          mountPath: "/app/wandb_tmp"
+        - name: config-dir
+          mountPath: "/app/used-config"
+
+      envFrom:
+        - secretRef:
+            name: stcngurs-minio-auth
+        - secretRef:
+            name: stcngurs-wandb-auth
+        - secretRef:
+            name: stcngurs-training-config-env
+        - secretRef:
+            name: stcngurs-wandb-tmp
+      resources:
+        requests:
+          nvidia.com/gpu: "1"
+          cpu: "8"
+          memory: "32Gi"
+        limits:
+          nvidia.com/gpu: "1"
+          cpu: "8"
+          memory: "32Gi"
+  volumes:
+    - name: config-dir
+    - name: pvc-stable-gym-many
+      #persistentVolumeClaim:
+      #  claimName: pvc-stable-gym-many
+    - name: pvc-stable-gym-wandb
+      #persistentVolumeClaim:
+      #  claimName: pvc-stable-gym-wandb
+  restartPolicy: Never

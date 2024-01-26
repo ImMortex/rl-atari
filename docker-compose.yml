@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+
+  stable-gym-atari:
+    container_name: stable-gym-atari
+    build: .
+    networks:
+      - trainers
+    env_file:
+      - .env
+
+networks:
+  trainers:
+    name: trainers
+    external: false
+
+
